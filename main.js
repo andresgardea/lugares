@@ -251,9 +251,9 @@ const tl = gsap.timeline({ paused: true });
 let mm = gsap.matchMedia();
 
 mm.add("(min-width: 800px)", () => {
-    const animateOpenNav = () => {
+    const animateOpeninfo = () => {
 
-        tl.to(".nav-container", 0.8, {
+        tl.to(".info-container", 0.8, {
             y: '40vh',
             ease: "power4.inOut",
             autoAlpha: 1,
@@ -277,27 +277,27 @@ mm.add("(min-width: 800px)", () => {
         },
             "-=0.4");
 
-        tl.from(".nav-footer", 0.3, {
+        tl.from(".info-footer", 0.3, {
             opacity: 0
         }, "-=0.5").reverse();
     };
 
-    const openNav = () => {
-        animateOpenNav();
-        const navBtn = document.getElementById("info-btn");
-        navBtn.onclick = function (e) {
-            navBtn.classList.toggle("active");
+    const openinfo = () => {
+        animateOpeninfo();
+        const infoBtn = document.getElementById("info-btn");
+        infoBtn.onclick = function (e) {
+            infoBtn.classList.toggle("active");
             tl.reversed(!tl.reversed());
         };
     };
 
-    openNav();
+    openinfo();
 });
 
 mm.add("(max-width: 799px)", () => {
-    const animateOpenNav = () => {
+    const animateOpeninfo = () => {
 
-        tl.to(".nav-container", 1, {
+        tl.to(".info-container", 1, {
             y: '100vh',
             ease: "power4.inOut",
             autoAlpha: 1,
@@ -321,19 +321,19 @@ mm.add("(max-width: 799px)", () => {
         },
             "-=0.4");
 
-        tl.from(".nav-footer", 0.3, {
+        tl.from(".info-footer", 0.3, {
             opacity: 0
         }, "-=0.5").reverse();
     };
 
-    const openNav = () => {
-        animateOpenNav();
-        const navBtn = document.getElementById("info-btn");
-        navBtn.onclick = function (e) {
-            navBtn.classList.toggle("active");
+    const openinfo = () => {
+        animateOpeninfo();
+        const infoBtn = document.getElementById("info-btn");
+        infoBtn.onclick = function (e) {
+            infoBtn.classList.toggle("active");
             tl.reversed(!tl.reversed());
         };
     };
 
-    openNav();
+    openinfo();
 });
