@@ -99,121 +99,144 @@ document.addEventListener("DOMContentLoaded", function () {
         );
     }
 
-    window.addEventListener("wheel", (e) => {
-        if (isAnimating) return;
-        if (e.deltaY > 0 && currentSlideIndex < slides.length - 1) 
-        {
-            showSlide(currentSlideIndex + 1);
-            currentSlideIndex++;
-        }   else if (e.deltaY < 0 && currentSlideIndex > 0) {
-            hideSlide(currentSlideIndex);
-            currentSlideIndex--;
-        }
-    })
+    const desktopSize = window.matchMedia('(min-width: 601px)')
+    const phoneSize = window.matchMedia('(max-width: 600px)')
 
-    console.log("finciona?"); 
+    if (desktopSize.matches) {
+        window.addEventListener("wheel", (e) => {
+            if (isAnimating) return;
+            if (e.deltaY > 0 && currentSlideIndex < slides.length - 1) {
+                showSlide(currentSlideIndex + 1);
+                currentSlideIndex++;
+            } else if (e.deltaY < 0 && currentSlideIndex > 0) {
+                hideSlide(currentSlideIndex);
+                currentSlideIndex--;
+            }
+        });
+
+        console.log("Funciona en base a Scroll");
+    }
+
+    if (phoneSize.matches) {
+        const nextBtn = document.getElementById("next");
+        const previousBtn = document.getElementById("previous");
+
+        nextBtn.addEventListener('click', () => {
+            if (isAnimating) return;
+            if (currentSlideIndex < slides.length - 1) {
+                showSlide(currentSlideIndex + 1);
+                currentSlideIndex++;
+            } else if (currentSlideIndex == slides.length) {
+                console.log("Acosta no sabe ensenar xD x2")
+            }
+        });
+
+        previousBtn.addEventListener('click', () => {
+            if (isAnimating) return;
+            if (currentSlideIndex > 0) {
+                hideSlide(currentSlideIndex);
+                currentSlideIndex--;
+            } else if (currentSlideIndex > slides.length - 1) {
+                hideSlide(currentSlideIndex);
+                currentSlideIndex--;
+            }
+        });
+
+        console.log("Funciona en base a Click");
+    }
+
 });
 
 /*Barra de Inforcion */
 
 const tl = gsap.timeline({ paused: true });
 
-        let mm = gsap.matchMedia();
+let mm = gsap.matchMedia();
 
-        mm.add("(min-width: 800px)", () => {
-            const animateOpenNav = () => {
+mm.add("(min-width: 800px)", () => {
+    const animateOpenNav = () => {
 
-                tl.to(".nav-container", 0.8, {
-                    y: '40vh',
-                    ease: "power4.inOut",
-                    autoAlpha: 1,
-                    delay: 0.1,
-                });
-
-                tl.to(".city-text, .logo-text", 0.2, {
-                    color: "#fff",
-                },
-                    "-+0.1");
-
-                tl.from(".social-links > div", 0.4, {
-                    opacity: 0,
-                    y: 10,
-                    stagger: {
-                        amount: 0.4,
-                    },
-                });
-
-                tl.to(".contact-link > a", 0.8, {
-                    top: 0,
-                    ease: "power2.inOut",
-                    stagger: {
-                        amount: 0.4,
-                    },
-                },
-                    "-=0.4");
-
-                tl.from(".nav-footer", 0.3, {
-                    opacity: 0
-                }, "-=0.5").reverse();
-            };
-
-            const openNav = () => {
-                animateOpenNav();
-                const navBtn = document.getElementById("info-btn");
-                navBtn.onclick = function (e) {
-                    navBtn.classList.toggle("active");
-                    tl.reversed(!tl.reversed());
-                };
-            };
-
-            openNav();
+        tl.to(".nav-container", 0.8, {
+            y: '40vh',
+            ease: "power4.inOut",
+            autoAlpha: 1,
+            delay: 0.1,
         });
 
-        mm.add("(max-width: 799px)", () => {
-            const animateOpenNav = () => {
-
-                tl.to(".nav-container", 1, {
-                    y: '100vh',
-                    ease: "power4.inOut",
-                    autoAlpha: 1,
-                    delay: 0.1,
-                });
-
-                tl.to(".city-text, .logo-text", 0.2, {
-                    color: "#fff",
-                },
-                    "-+0.1");
-
-                tl.from(".social-links > div", 0.4, {
-                    opacity: 0,
-                    y: 10,
-                    stagger: {
-                        amount: 0.4,
-                    },
-                });
-
-                tl.to(".contact-link > a", 0.8, {
-                    top: 0,
-                    ease: "power2.inOut",
-                    stagger: {
-                        amount: 0.4,
-                    },
-                },
-                    "-=0.4");
-
-                tl.from(".nav-footer", 0.3, {
-                    opacity: 0
-                }, "-=0.5").reverse();
-            };
-
-            const openNav = () => {
-                animateOpenNav();
-                const navBtn = document.getElementById("info-btn");
-                navBtn.onclick = function (e) {
-                    navBtn.classList.toggle("active");
-                    tl.reversed(!tl.reversed());
-                };
-            };
-
-            openNav();
+        tl.from(".social-links > div", 0.4, {
+            opacity: 0,
+            y: 10,
+            stagger: {
+                amount: 0.4,
+            },
         });
+
+        tl.to(".contact-link > a", 0.8, {
+            top: 0,
+            ease: "power2.inOut",
+            stagger: {
+                amount: 0.4,
+            },
+        },
+            "-=0.4");
+
+        tl.from(".nav-footer", 0.3, {
+            opacity: 0
+        }, "-=0.5").reverse();
+    };
+
+    const openNav = () => {
+        animateOpenNav();
+        const navBtn = document.getElementById("info-btn");
+        navBtn.onclick = function (e) {
+            navBtn.classList.toggle("active");
+            tl.reversed(!tl.reversed());
+        };
+    };
+
+    openNav();
+});
+
+mm.add("(max-width: 799px)", () => {
+    const animateOpenNav = () => {
+
+        tl.to(".nav-container", 1, {
+            y: '100vh',
+            ease: "power4.inOut",
+            autoAlpha: 1,
+            delay: 0.1,
+        });
+
+        tl.from(".social-links > div", 0.4, {
+            opacity: 0,
+            y: 10,
+            stagger: {
+                amount: 0.4,
+            },
+        });
+
+        tl.to(".contact-link > a", 0.8, {
+            top: 0,
+            ease: "power2.inOut",
+            stagger: {
+                amount: 0.4,
+            },
+        },
+            "-=0.4");
+
+        tl.from(".nav-footer", 0.3, {
+            opacity: 0
+        }, "-=0.5").reverse();
+    };
+
+    const openNav = () => {
+        animateOpenNav();
+        const navBtn = document.getElementById("info-btn");
+        navBtn.onclick = function (e) {
+            navBtn.classList.toggle("active");
+            tl.reversed(!tl.reversed());
+        };
+    };
+
+    openNav();
+});
