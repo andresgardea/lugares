@@ -14,7 +14,7 @@ html {
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     -webkit-tap-highlight-color: transparent;
-    font-family: 'Neue Montreal';
+    font-family: 'Neue';
     overflow: hidden;
     background-color: #1c1c1e;
 }
@@ -25,6 +25,12 @@ body {
 
 :root {
     font-size: 12px;
+}
+
+@font-face {
+    font-family: Neue;
+    src: url(Media/Font/NeueMontreal-Medium.otf);
+    font-display: block;
 }
 
 h1 {
